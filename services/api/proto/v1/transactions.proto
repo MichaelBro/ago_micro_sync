@@ -1,0 +1,26 @@
+syntax = "proto3";  // версия proto (по умолчанию - proto2)
+
+package transactions.v1;  // пакет - для операций import'а
+option go_package = "pkg/transactions/v1";  // полный путь пакета для go
+
+import "google/protobuf/timestamp.proto";  // импортируем из другого proto (стандартная поставка)
+
+service TransactionsService {
+  rpc Transactions(TransactionsRequest) returns (TransactionsResponse);
+}
+
+message TransactionsRequest {
+  sint64 id = 1;
+}
+
+message TransactionResponse {
+  sint64 id = 1;
+  sint64 userId = 2;
+  string category = 3;
+  sint64 amount = 4;
+  google.protobuf.Timestamp created = 5;
+}
+
+message TransactionsResponse {
+  repeated TransactionResponse transactions = 1;
+}
